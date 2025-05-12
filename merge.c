@@ -1,36 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void intercala(int inicio, int meio, int fim, int v[]) {
-    int i = inicio;
-    int j = meio + 1;
-    int k = 0;
-    int *aux = (int *)malloc((fim - inicio + 1) * sizeof(int));
+    int i = inicio, j = meio + 1, k = 0;
+    int *aux = malloc((fim - inicio + 1) * sizeof(int));
 
     while (i <= meio && j <= fim) {
-        if (v[i] <= v[j]) {
-            aux[k++] = v[i++];
-        } else {
-            aux[k++] = v[j++];
-        }
+        if (v[i] <= v[j]) aux[k++] = v[i++];
+        else              aux[k++] = v[j++];
     }
-
-    while (i <= meio) {
-        aux[k++] = v[i++];
-    }
-
-    while (j <= fim) {
-        aux[k++] = v[j++];
-    }
-
-    for (i = inicio, k = 0; i <= fim; i++, k++) {
+    while (i <= meio) aux[k++] = v[i++];
+    while (j <= fim)  aux[k++] = v[j++];
+    for (i = inicio, k = 0; i <= fim; i++, k++)
         v[i] = aux[k];
-    }
 
     free(aux);
 }
 
-// Merge Sort
 void mergesort(int inicio, int fim, int v[]) {
     if (inicio < fim) {
         int meio = (inicio + fim) / 2;
@@ -41,31 +28,45 @@ void mergesort(int inicio, int fim, int v[]) {
 }
 
 int main() {
-    int tamanho;
-    
-    printf("Digite o tamanho do vetor: ");
-    scanf("%d", &tamanho);
-
-    int v[tamanho];
-    printf("Digite os elementos do vetor:\n");
-    for (int i = 0; i < tamanho; i++) {
-        scanf("%d", &v[i]);
+    FILE *f = fopen("../casos_de_teste/teste500000.txt", "r");
+    if (!f) {
+        perror("Erro ao abrir arquivo");
+        return EXIT_FAILURE;
     }
 
-    printf("Vetor desordenado:\n");
-    for (int i = 0; i < tamanho; i++) {
-        printf("%d ", v[i]);
+    const int capacidade = 500000;
+    int *v = malloc(capacidade * sizeof(int));
+    if (!v) {
+        perror("Erro de alocação");
+        fclose(f);
+        return EXIT_FAILURE;
     }
-    printf("\n");
 
-    // Merge Sort
+    int tamanho = 0;
+    while (tamanho < capacidade && fscanf(f, "%d", &v[tamanho]) == 1)
+        tamanho++;
+    fclose(f);
+
+    if (tamanho == 0) {
+        fprintf(stderr, "Nenhum número lido do arquivo ou formato inválido\n");
+        free(v);
+        return EXIT_FAILURE;
+    }
+
+    clock_t inicio = clock();
+
     mergesort(0, tamanho - 1, v);
 
-    printf("Vetor ordenado:\n");
-    for (int i = 0; i < tamanho; i++) {
-        printf("%d ", v[i]);
-    }
-    printf("\n");
+    clock_t fim = clock();
 
-    return 0;
+    double duracao = (double)(fim - inicio) / CLOCKS_PER_SEC;
+    printf("Tempo de ordenação: %.6f segundos\n", duracao);
+
+    //printf("Vetor ordenado com %d números:\n", tamanho);
+    //for (int i = 0; i < tamanho; i++)
+    //    printf("%d ", v[i]);
+    //printf("\n");
+
+    free(v);
+    return EXIT_SUCCESS;
 }

@@ -28,13 +28,13 @@ void mergesort(int inicio, int fim, int v[]) {
 }
 
 int main() {
-    FILE *f = fopen("../casos_de_teste/teste500000.txt", "r");
+    FILE *f = fopen("../casos_de_teste/teste1000000.txt", "r");
     if (!f) {
         perror("Erro ao abrir arquivo");
         return EXIT_FAILURE;
     }
 
-    const int capacidade = 500000;
+    const int capacidade = 1000001;
     int *v = malloc(capacidade * sizeof(int));
     if (!v) {
         perror("Erro de alocação");

@@ -35,7 +35,7 @@ def mergesort(v, inicio, fim):
         intercala(v, inicio, meio, fim)
 
 def main():
-    filename = "../trabalho-teoria/casos_de_teste/teste100000.txt"  #alterne entre teste100000 , teste300000 e teste500000
+    filename = "../trabalho-teoria/casos_de_teste/teste500000.txt"  #alterne entre teste100000 , teste300000 e teste500000
     capacidade = 500_000
 
     try:

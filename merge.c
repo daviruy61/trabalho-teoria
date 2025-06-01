@@ -28,7 +28,7 @@ void mergesort(int inicio, int fim, int v[]) {
 }
 
 int main() {
-    FILE *f = fopen("../casos_de_teste/teste1000000.txt", "r");
+    FILE *f = fopen("../casos_de_teste/melhor-caso-500k.txt", "r");
     if (!f) {
         perror("Erro ao abrir arquivo");
         return EXIT_FAILURE;

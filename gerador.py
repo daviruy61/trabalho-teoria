@@ -30,7 +30,6 @@ def main():
     with open(file_path, "w") as f:
         for n in list:
             f.write(f"{n}\n")
-        f = f.rstrip("\n")
 
 if (__name__ == "__main__"):
     main()

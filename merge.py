@@ -35,7 +35,7 @@ def mergesort(v, inicio, fim):
         intercala(v, inicio, meio, fim)
 
 def main():
-    filename = "../trabalho-teoria/casos_de_teste/melhor-caso-100k.txt" 
+    filename = "../trabalho-teoria/casos_de_teste/medio-caso-100k.txt" #mude o arquivo a ser ordenado aqui
     capacidade = 1_000_000
 
     try:
